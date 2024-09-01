@@ -10,6 +10,7 @@ import org.springframework.test.context.junit.jupiter.SpringExtension;
 import org.zerock.springex.domain.TodoVO;
 import org.zerock.springex.dto.PageRequestDTO;
 
+import java.time.LocalDate;
 import java.util.List;
 
 @Log4j2
@@ -45,6 +46,29 @@ public class TodoMapperTests {
         List<TodoVO> voList = todoMapper.selectList(pageRequestDTO);
 
         voList.forEach(vo -> log.info(vo));
+
+    }
+
+    @Test
+    public void testSelectSearch(){
+
+        PageRequestDTO pageRequestDTO = PageRequestDTO.builder()
+                .page(1)
+                .size(10)
+                .types(new String[]{"t","w"})
+                .keyword("Test")
+                .from(LocalDate.of(2020,12,11))
+                .to(LocalDate.of(2025,12,23))
+                .build();
+
+        List<TodoVO> voList = todoMapper.selectList(pageRequestDTO);
+
+        for (TodoVO todoVO : voList) {
+            log.info(todoVO);
+        }
+
+        log.info(todoMapper.getCount(pageRequestDTO));
+
 
 
     }
