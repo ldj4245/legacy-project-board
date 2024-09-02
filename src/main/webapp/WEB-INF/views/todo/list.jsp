@@ -143,8 +143,13 @@
 
                   const num = target.getAttribute("data-num");
 
-                  self.location = `/todo/list?page=\${num}` //백틱(` `)을 이용해서 템플릿 처리
-                })
+                  const formObj = document.querySelector("form")
+
+                  formObj.innerHTML += `<input type='hidden' name='page' value='\${num}'>`
+
+                  formObj.submit();
+
+                },false)
 
                 document.querySelector(".clearBtn").addEventListener("click",function (e) {
                   e.preventDefault()
